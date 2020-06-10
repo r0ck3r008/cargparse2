@@ -102,7 +102,7 @@ void show_help(ArgParse *args)
 			fprintf(stdout, "Required\t");
 		else
 			fprintf(stdout, "Optional\t");
-		if(curr->type!=NoneType && curr->def) {
+		if(curr->def) {
 			switch(curr->type) {
 			case IntType:
 				fprintf(stdout, "%d\n", curr->ival);
@@ -113,6 +113,8 @@ void show_help(ArgParse *args)
 			case StrType:
 				fprintf(stdout, "%s\n", curr->sval);
 				break;
+			case NoneType:
+				fprintf(stdout, "NULL\n");
 			}
 		} else {
 			fprintf(stdout, "NULL\n");
