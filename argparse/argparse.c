@@ -32,6 +32,41 @@ void add_argument(ArgParse *args, char *sname, char *lname, char *help,
 		args->min_argc+=(type==NoneType) ? (1) : (2);
 }
 
+void parse_args(ArgParse *args, int argc, char **argv)
+{
+	if(argc<args->min_argc) {
+		show_help(args);
+		return;
+	}
+
+	for(int i=0; i<argc; i++) {
+		ArgNode *curr=argnode_find(args->args, argv[i]);
+		if(curr==NULL) {
+			show_help(args);
+			break;
+		}
+
+		void *val=NULL; float fval; int ival;
+		switch(curr->type) {
+		case IntType:
+			ival=strtol(argv[++i], NULL, 10);
+			val=&ival;
+			break;
+		case FloatType:
+			fval=strtof(argv[++i], NULL);
+			val=&fval;
+			break;
+		case StrType:
+			val=argv[++i];
+			break;
+		default:
+			show_help(args);
+		}
+		argnode_add_val(curr, NULL, val);
+		curr->on=1;
+	}
+}
+
 void show_help(ArgParse *args)
 {
 	ArgNode *curr=args->args;
