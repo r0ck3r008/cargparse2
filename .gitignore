@@ -2,3 +2,4 @@
 !.vim/.gitkeep
 tmp/*
 !tmp/.gitkeep
+libcargparse2.so
