@@ -12,6 +12,7 @@ typedef struct Argnode
 {
 	char *sname, *lname, *help, *name;
 	ArgType type;
+	int on, req, def;
 	union
 	{
 		int ival;
@@ -21,11 +22,16 @@ typedef struct Argnode
 	struct Argnode *nxt;
 } Argnode;
 
-Argnode *argnode_init(char *, char *, char *, char *,
-			ArgType);
 void argnode_add_val(Argnode *, void *);
 void argnode_add_node(Argnode *, Argnode *);
 void argnode_del_list(Argnode *);
 void argnode_deinit(Argnode *);
+ArgNode *argnode_init(char *, char *, char *, char *,
+			ArgType, int);
+ArgNode *argnode_find(ArgNode *, char *);
+void argnode_add_val(ArgNode *, char *, void *);
+void argnode_add_node(ArgNode *, ArgNode *);
+void argnode_del_list(ArgNode *);
+void argnode_deinit(ArgNode *);
 
 #endif

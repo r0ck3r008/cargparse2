@@ -5,12 +5,12 @@
 
 #include"argnode.h"
 
-Argnode *argnode_init(char *sname, char *lname, char *help, char *name,
-			ArgType type)
+ArgNode *argnode_init(char *sname, char *lname, char *help, char *name,
+			ArgType type, int req)
 {
-	Argnode *anode=calloc(1, sizeof(Argnode));
+	ArgNode *anode=calloc(1, sizeof(ArgNode));
 	if(anode==NULL) {
-		fprintf(stderr, "[-]Argnode: Error in allocating memory!\n");
+		fprintf(stderr, "[-]ArgNode: Error in allocating memory!\n");
 		_exit(-1);
 	}
 
