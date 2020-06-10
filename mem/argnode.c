@@ -44,6 +44,9 @@ ArgNode *argnode_find(ArgNode *start, char *name)
 	return ret;
 }
 
+void argnode_add_val(ArgNode *start, char *name, void *val)
+{
+	ArgNode *anode=argnode_find(start, name);
 	switch(anode->type) {
 	case IntType:
 		anode->ival=*(int *)val;
