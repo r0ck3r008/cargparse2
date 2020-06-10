@@ -1,12 +1,7 @@
 #ifndef ARGNODE_H
 #define ARGNODE_H
 
-typedef enum
-{
-	IntType,
-	FloatType,
-	StrType
-} ArgType;
+#include"argtype.h"
 
 typedef struct ArgNode
 {
