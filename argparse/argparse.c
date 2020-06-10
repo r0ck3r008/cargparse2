@@ -67,6 +67,30 @@ void parse_args(ArgParse *args, int argc, char **argv)
 	}
 }
 
+void *argparse_get_val(ArgParse *args, char *name)
+{
+	ArgNode *curr=argnode_find(args->args, name);
+	if(curr==NULL)
+		return NULL;
+
+	void *ret=NULL;
+	switch(curr->type) {
+	case IntType:
+		ret=(void *)&(curr->ival);
+		break;
+	case FloatType:
+		ret=(void *)&(curr->fval);
+		break;
+	case StrType:
+		ret=(void *)curr->sval;
+		break;
+	case NoneType:
+		ret=NULL;
+	}
+
+	return ret;
+}
+
 void show_help(ArgParse *args)
 {
 	ArgNode *curr=args->args;

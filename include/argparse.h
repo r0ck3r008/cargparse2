@@ -14,6 +14,7 @@ ArgParse *argparse_init();
 void add_argument(ArgParse *, char *, char *, char *,
 			char *, ArgType, int, void *);
 void parse_args(ArgParse *, int, char **);
+void *argparse_get_val(ArgParse *, char *);
 void show_help(ArgParse *);
 void clean(ArgParse *);
 
