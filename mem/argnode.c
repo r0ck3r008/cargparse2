@@ -20,17 +20,30 @@ ArgNode *argnode_init(char *sname, char *lname, char *help, char *name,
 	anode->name=strdup(name);
 	if(anode->sname==NULL || anode->lname==NULL || anode->help==NULL ||
 		anode->name==NULL) {
-		fprintf(stderr, "[-]Argnode: Error in allocating memory!\n");
+		fprintf(stderr, "[-]ArgNode: Error in allocating memory!\n");
 		_exit(-1);
 	}
 
-	anode->type=IntType;
+	anode->req=req;
+	anode->type=type;
 
 	return anode;
 }
 
-void argnode_add_val(Argnode *anode, void *val)
+ArgNode *argnode_find(ArgNode *start, char *name)
 {
+	ArgNode *curr=start, *ret=NULL;
+	while(curr!=NULL) {
+		if(!strcmp(curr->name, name)) {
+			ret=curr;
+			break;
+		}
+		curr=curr->nxt;
+	}
+
+	return ret;
+}
+
 	switch(anode->type) {
 	case IntType:
 		anode->ival=*(int *)val;
@@ -41,27 +54,29 @@ void argnode_add_val(Argnode *anode, void *val)
 	case StrType:
 		anode->sval=strdup((char *)val);
 		if(anode->sval==NULL) {
-			fprintf(stderr, "[-]Argnode: SVAL: Error in allocating memory!\n");
+			fprintf(stderr, "[-]ArgNode: SVAL: Error in allocating memory!\n");
 			_exit(-1);
 		}
 		break;
+	case NoneType:
+		break;
 	default:
-		fprintf(stderr, "[-]Argnode: Unknown type: %d!\n", anode->type);
+		fprintf(stderr, "[-]ArgNode: Unknown type: %d!\n", anode->type);
 		_exit(-1);
 	}
 }
 
-void argnode_add_node(Argnode *start, Argnode *node)
+void argnode_add_node(ArgNode *start, ArgNode *node)
 {
-	Argnode *curr=start;
+	ArgNode *curr=start;
 	while(curr->nxt!=NULL)
 		curr=curr->nxt;
 	curr->nxt=node;
 }
 
-void argnode_del_list(Argnode *start)
+void argnode_del_list(ArgNode *start)
 {
-	Argnode *curr=start->nxt;
+	ArgNode *curr=start->nxt;
 	while(start->nxt!=NULL) {
 		start->nxt=curr->nxt;
 		argnode_deinit(curr);
@@ -70,7 +85,7 @@ void argnode_del_list(Argnode *start)
 	argnode_deinit(start);
 }
 
-void argnode_deinit(Argnode *anode)
+void argnode_deinit(ArgNode *anode)
 {
 	free(anode->sname);
 	free(anode->lname);

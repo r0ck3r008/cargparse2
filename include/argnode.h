@@ -8,7 +8,7 @@ typedef enum
 	StrType
 } ArgType;
 
-typedef struct Argnode
+typedef struct ArgNode
 {
 	char *sname, *lname, *help, *name;
 	ArgType type;
@@ -19,13 +19,9 @@ typedef struct Argnode
 		float fval;
 		char *sval;
 	};
-	struct Argnode *nxt;
-} Argnode;
+	struct ArgNode *nxt;
+} ArgNode;
 
-void argnode_add_val(Argnode *, void *);
-void argnode_add_node(Argnode *, Argnode *);
-void argnode_del_list(Argnode *);
-void argnode_deinit(Argnode *);
 ArgNode *argnode_init(char *, char *, char *, char *,
 			ArgType, int);
 ArgNode *argnode_find(ArgNode *, char *);
