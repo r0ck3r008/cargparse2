@@ -34,7 +34,7 @@ ArgNode *argnode_find(ArgNode *start, char *name)
 {
 	ArgNode *curr=start, *ret=NULL;
 	while(curr!=NULL) {
-		if(!strcmp(curr->name, name)) {
+		if(!strcmp(curr->sname, name) || !strcmp(curr->lname, name)) {
 			ret=curr;
 			break;
 		}
@@ -46,7 +46,12 @@ ArgNode *argnode_find(ArgNode *start, char *name)
 
 void argnode_add_val(ArgNode *start, char *name, void *val)
 {
-	ArgNode *anode=argnode_find(start, name);
+	ArgNode *anode=NULL;
+	if(name!=NULL)
+		anode=argnode_find(start, name);
+	else
+		anode=start;
+
 	switch(anode->type) {
 	case IntType:
 		anode->ival=*(int *)val;
