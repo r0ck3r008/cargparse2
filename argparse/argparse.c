@@ -59,6 +59,8 @@ void show_help(ArgParse *args)
 			fprintf(stdout, "NULL\n");
 		}
 	}
+
+	clean(args);
 }
 
 void clean(ArgParse *args)
