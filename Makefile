@@ -9,6 +9,7 @@ all: libcargparse2.so
 
 libcargparse2.so: argparse_objs mem_objs
 	${COMPILER} ${LINKER_FLAGS} ${ALL_OBJS} -o libcargparse2.so
+	make clean_objs
 
 argparse_objs:
 	COMPILER=${COMPILER} COMPILE_PATH=${COMPILE_PATH} \
