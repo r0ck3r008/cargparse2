@@ -67,28 +67,48 @@ void parse_args(ArgParse *args, int argc, char **argv)
 	}
 }
 
-void *argparse_get_val(ArgParse *args, char *name)
+int argparse_get_int(ArgParse *args, char *name)
 {
 	ArgNode *curr=argnode_find(args->args, name);
-	if(curr==NULL)
-		return NULL;
-
-	void *ret=NULL;
-	switch(curr->type) {
-	case IntType:
-		ret=(void *)&(curr->ival);
-		break;
-	case FloatType:
-		ret=(void *)&(curr->fval);
-		break;
-	case StrType:
-		ret=(void *)curr->sval;
-		break;
-	case NoneType:
-		ret=NULL;
+	if(curr==NULL) {
+		show_help(args);
+		return 0;
 	}
 
-	return ret;
+	if(curr->type==IntType)
+		return curr->ival;
+	else if(curr->type==NoneType)
+		return ((curr->on) ? (1) : (0));
+
+	return 0;
+}
+
+float argparse_get_float(ArgParse *args, char *name)
+{
+	ArgNode *curr=argnode_find(args->args, name);
+	if(curr==NULL) {
+		show_help(args);
+		return 0;
+	}
+
+	if(curr->type==FloatType)
+		return curr->fval;
+
+	return 0.0;
+}
+
+char *argparse_get_char(ArgParse *args, char *name)
+{
+	ArgNode *curr=argnode_find(args->args, name);
+	if(curr==NULL) {
+		show_help(args);
+		return 0;
+	}
+
+	if(curr->type==StrType)
+		return curr->sval;
+
+	return NULL;
 }
 
 void show_help(ArgParse *args)
