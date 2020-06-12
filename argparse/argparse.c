@@ -139,9 +139,11 @@ void show_help(ArgParse *args)
 		} else {
 			fprintf(stdout, "NULL\n");
 		}
+		curr=curr->nxt;
 	}
 
 	clean(args);
+	_exit(-1);
 }
 
 void clean(ArgParse *args)
