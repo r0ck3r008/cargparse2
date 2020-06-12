@@ -25,7 +25,7 @@ void add_argument(ArgParse *args, char *sname, char *lname, char *help,
 	ArgNode *node=argnode_init(sname, lname, help, name, type, req);
 	argnode_add_node(args->args, node);
 	if(type!=NoneType && def!=NULL) {
-		argnode_add_val(args->args, name, def);
+		argnode_add_val(args->args, sname, def);
 		node->def=1;
 	}
 	if(req)
