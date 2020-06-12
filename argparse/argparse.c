@@ -114,14 +114,14 @@ char *argparse_get_char(ArgParse *args, char *name)
 void show_help(ArgParse *args)
 {
 	ArgNode *curr=args->args;
-	fprintf(stdout, "Flag, Name\tHelp\tRequired\tDefault\n");
+	fprintf(stdout, "Flag, Name\t\tHelp\t\tRequired\t\tDefault\n");
 	while(curr!=NULL) {
-		fprintf(stdout, "%s ,%s\t%s\t", curr->sname, curr->lname,
+		fprintf(stdout, "%s ,%s\t\t%s\t\t", curr->sname, curr->lname,
 			curr->help);
 		if(curr->req)
-			fprintf(stdout, "Required\t");
+			fprintf(stdout, "Required\t\t");
 		else
-			fprintf(stdout, "Optional\t");
+			fprintf(stdout, "Optional\t\t");
 		if(curr->def) {
 			switch(curr->type) {
 			case IntType:
