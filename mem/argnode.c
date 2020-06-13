@@ -34,7 +34,8 @@ ArgNode *argnode_find(ArgNode *start, char *name)
 {
 	ArgNode *curr=start, *ret=NULL;
 	while(curr!=NULL) {
-		if(!strcmp(curr->sname, name) || !strcmp(curr->lname, name)) {
+		if(!strcmp(curr->sname, name) || !strcmp(curr->lname, name) ||
+			!strcmp(curr->name, name)) {
 			ret=curr;
 			break;
 		}
