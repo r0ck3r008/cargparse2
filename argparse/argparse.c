@@ -34,12 +34,12 @@ void add_argument(ArgParse *args, char *sname, char *lname, char *help,
 
 void parse_args(ArgParse *args, int argc, char **argv)
 {
-	if(argc<args->min_argc) {
+	if(argc-1<args->min_argc) {
 		show_help(args);
 		return;
 	}
 
-	for(int i=0; i<argc; i++) {
+	for(int i=1; i<argc; i++) {
 		ArgNode *curr=argnode_find(args->args, argv[i]);
 		if(curr==NULL) {
 			show_help(args);
