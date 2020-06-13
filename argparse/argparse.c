@@ -47,22 +47,24 @@ void parse_args(ArgParse *args, int argc, char **argv)
 		}
 
 		void *val=NULL; float fval; int ival;
-		switch(curr->type) {
-		case IntType:
-			ival=strtol(argv[++i], NULL, 10);
-			val=&ival;
-			break;
-		case FloatType:
-			fval=strtof(argv[++i], NULL);
-			val=&fval;
-			break;
-		case StrType:
-			val=argv[++i];
-			break;
-		default:
-			show_help(args);
+		if(curr->type!=NoneType) {
+			switch(curr->type) {
+			case IntType:
+				ival=strtol(argv[++i], NULL, 10);
+				val=&ival;
+				break;
+			case FloatType:
+				fval=strtof(argv[++i], NULL);
+				val=&fval;
+				break;
+			case StrType:
+				val=argv[++i];
+				break;
+			default:
+				show_help(args);
+			}
+			argnode_add_val(curr, NULL, val);
 		}
-		argnode_add_val(curr, NULL, val);
 		curr->on=1;
 	}
 }
